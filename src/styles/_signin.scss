@@ -1,0 +1,79 @@
+.register {
+  font-family: "Lato", sans-serif;
+  background-color: white;
+  width: 35rem;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0px -1px 36px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 1rem;
+  overflow: hidden;
+
+  .registerContent {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    .registerImg {
+      width: 10rem;
+      padding: 1rem 0;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      font-weight: bold;
+      padding: 1rem;
+    }
+
+    .registerForm {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+      align-items: center;
+
+      .registerInput {
+        margin: 0.5rem;
+        padding: 0.8rem;
+        width: 18rem;
+        border: 1px solid #c4c4c4;
+      }
+
+      .registerButton {
+        background-color: #95b7e6;
+        color: white;
+        font-weight: bold;
+        font-size: 1rem;
+        margin-top: 1rem;
+        padding: 0.8rem;
+        width: 20rem;
+        cursor: pointer;
+        border: none;
+        transition: background-color 0.3s ease;
+        outline: none;
+
+        &:hover {
+          background-color: #a9cbfb;
+        }
+      }
+
+      .registerFooter {
+        padding-top: 0.5rem;
+        font-size: 0.8rem;
+        color: #c4c4c4;
+      }
+
+      .registerFooterLink {
+        font-size: 0.9rem;
+        color: #2c649e;
+        background-color: white;
+        border: none;
+        cursor: pointer;
+      }
+    }
+  }
+}

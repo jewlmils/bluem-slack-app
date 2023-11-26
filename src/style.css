@@ -1,0 +1,561 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap");
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.sidebar {
+  background-color: #e9ecef;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 4px 2px 42px -5px rgba(0, 0, 0, 0.2);
+  padding: 0.5rem;
+}
+.sidebar ul {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.sidebar ul li {
+  list-style-type: none;
+  margin: 2px 0;
+}
+.sidebar ul li .sidebar-list {
+  text-decoration: none;
+  padding: 1rem;
+  display: block;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  color: black;
+  font-weight: bolder;
+}
+.sidebar ul li .sidebar-list:hover, .sidebar ul li .sidebar-list.active {
+  background-color: #a9cbfb;
+  color: white;
+  border-radius: 0.8rem;
+}
+.sidebar .logout {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: black;
+  align-items: center;
+  margin: 1rem 0;
+  padding: 1rem;
+  text-decoration: none;
+  font-weight: bolder;
+}
+.sidebar .logout:hover, .sidebar .logout.active {
+  background-color: #a9cbfb;
+  color: white;
+  border-radius: 0.8rem;
+}
+.sidebar .selected {
+  background-color: #a9cbfb;
+}
+
+.chat,
+.channel {
+  display: flex;
+  background-color: #e2eafc;
+  width: 100%;
+}
+
+.convoIntro {
+  color: #c4c4c4;
+  text-align: center;
+  width: 15rem;
+}
+
+.circle {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background-color: #7ca2d6;
+  margin-right: 1rem;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.circle img {
+  width: 2.5rem;
+}
+
+.userList {
+  background-color: #f8f9fa;
+  border-right: 1px solid #c4c4c4;
+}
+.userList .listofUsers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.userList .listofUsers .listofUserIntro {
+  display: flex;
+  flex-direction: column;
+}
+.userList .listofUsers .listofUserIntro h1 {
+  text-align: left;
+  font-size: 1.5rem;
+  font-weight: 800;
+  display: flex;
+  margin: 2rem 2rem 1rem 2rem;
+}
+.userList .listofUsers .boxMainButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background-color: #95b7e6;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  margin-top: 1rem;
+  padding: 0.8rem;
+  width: 20rem;
+  cursor: pointer;
+  border: none;
+  margin: 0 2rem 2rem 2rem;
+  border-radius: 0.5rem;
+}
+.userList .listofUsers .boxMainButton:hover {
+  background-color: #a9cbfb;
+}
+.userList .usersList {
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 60vh;
+}
+.userList .usersList::-webkit-scrollbar {
+  width: 10px;
+}
+.userList .usersList::-webkit-scrollbar-track {
+  background-color: #d1e5ff;
+  border-radius: 1rem;
+}
+.userList .usersList::-webkit-scrollbar-thumb {
+  background-color: #95b7e6;
+  border-radius: 1rem;
+}
+.userList .usersList .listOfUser {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem 2rem 0 2rem;
+  padding: 0.5rem;
+  background-color: white;
+  width: 19rem;
+  border-radius: 0.5rem;
+}
+.userList .usersList .listOfUser:hover, .userList .usersList .listOfUser:focus {
+  background-color: #d1dded;
+}
+.userList .usersList .listOfUser .userName {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+.userList .usersList .listOfUser .userDelete {
+  border: none;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: #95b7e6;
+  color: white;
+}
+.userList .usersList .listOfUser .userDelete:hover {
+  background-color: #a9cbfb;
+}
+
+.userWelcome {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8f9fa;
+}
+
+.boxContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.boxContainer .boxUsernameUp {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+.boxContainer .boxUsernameUp .boxMainButtonPlus {
+  border: none;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: #95b7e6;
+  color: white;
+}
+.boxContainer .boxUsernameUp .boxMainButtonPlus:hover {
+  background-color: #a9cbfb;
+}
+.boxContainer .boxUsername {
+  background-color: #f8f9fa;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+.boxContainer .boxBody {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #e2eafc;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
+}
+.boxContainer .boxBody::-webkit-scrollbar {
+  width: 10px;
+}
+.boxContainer .boxBody::-webkit-scrollbar-track {
+  background-color: #d1e5ff;
+}
+.boxContainer .boxBody::-webkit-scrollbar-thumb {
+  background-color: #95b7e6;
+  border-radius: 1rem;
+}
+.boxContainer .boxBody .boxMessages {
+  background-color: #f8f9fa;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  width: 90%;
+}
+.boxContainer .boxBody .boxMessageContent {
+  display: flex;
+  flex-direction: column;
+}
+.boxContainer .boxForm {
+  align-items: flex-end;
+  justify-content: flex-end;
+  background-color: #f8f9fa;
+  padding: 1rem;
+}
+.boxContainer .boxForm .boxFormGroup {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.boxContainer .boxForm .boxFormGroup .boxInput {
+  flex: 1;
+  padding: 1rem;
+  background-color: #e2eafc;
+  border: none;
+  outline: none;
+  border-radius: 0.5rem;
+}
+.boxContainer .boxForm .boxFormGroup .boxInput::-moz-placeholder {
+  color: #7ca2d6;
+}
+.boxContainer .boxForm .boxFormGroup .boxInput::placeholder {
+  color: #7ca2d6;
+}
+.boxContainer .boxForm .boxFormGroup .boxSubmit {
+  border: none;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: #95b7e6;
+  color: white;
+}
+.boxContainer .boxForm .boxFormGroup .boxSubmit:hover {
+  background-color: #a9cbfb;
+}
+
+.boxMessageContainers {
+  display: flex;
+}
+
+.userModal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+.userModal .userModalContent {
+  background-color: white;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0px -1px 36px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 1rem;
+  overflow: hidden;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.userModal .userModalContent h2 {
+  font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+.userModal .userModalContent h1 {
+  font-weight: bold;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+.userModal .userModalContent form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.userModal .userModalContent form input {
+  margin: 0.5rem;
+  padding: 0.8rem;
+  width: 18rem;
+  border: 1px solid #c4c4c4;
+}
+.userModal .userModalContent form .userModalButtons {
+  display: flex;
+  gap: 2rem;
+}
+.userModal .userModalContent form .userModalButtons .userModalButton {
+  background-color: #95b7e6;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  margin-top: 1rem;
+  padding: 0.8rem;
+  width: 9rem;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease;
+  outline: none;
+  border-radius: 0.5rem;
+}
+.userModal .userModalContent form .userModalButtons .userModalButton:hover {
+  background-color: #a9cbfb;
+}
+
+.lp-body {
+  font-family: "Poppins", sans-serif;
+  background: url("src/assets/lpbackground.jpg");
+  -o-object-fit: cover;
+     object-fit: cover;
+  height: 100vh;
+  width: 100vw;
+}
+
+.lp-navbar {
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 2rem 0 2rem;
+}
+.lp-navbar .lp-logo {
+  width: 10rem;
+  padding: 1rem 0;
+}
+.lp-navbar .lp-button {
+  background-color: #95b7e6;
+  padding: 1rem 2rem;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+  border-radius: 5rem;
+}
+
+.lp-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+}
+.lp-content .lp-intro {
+  color: white;
+  font-weight: bolder;
+  font-size: clamp(2rem, 0.571rem + 3.81vw, 4rem);
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.lp-content .lp-subintro {
+  color: white;
+  font-size: 1rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  width: 50rem;
+}
+.lp-content .lp-hero {
+  width: 35rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.register {
+  font-family: "Lato", sans-serif;
+  background-color: white;
+  width: 35rem;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0px -1px 36px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+.register .registerContent {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.register .registerContent .registerImg {
+  width: 10rem;
+  padding: 1rem 0;
+}
+.register .registerContent h1 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  padding: 1rem;
+}
+.register .registerContent .registerForm {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  align-items: center;
+}
+.register .registerContent .registerForm .registerInput {
+  margin: 0.5rem;
+  padding: 0.8rem;
+  width: 18rem;
+  border: 1px solid #c4c4c4;
+}
+.register .registerContent .registerForm .registerButton {
+  background-color: #95b7e6;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  margin-top: 1rem;
+  padding: 0.8rem;
+  width: 20rem;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease;
+  outline: none;
+}
+.register .registerContent .registerForm .registerButton:hover {
+  background-color: #a9cbfb;
+}
+.register .registerContent .registerForm .registerFooter {
+  padding-top: 0.5rem;
+  font-size: 0.8rem;
+  color: #c4c4c4;
+}
+.register .registerContent .registerForm .registerFooterLink {
+  font-size: 0.9rem;
+  color: #2c649e;
+  background-color: white;
+  border: none;
+  cursor: pointer;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+  height: 100%;
+  overflow: hidden;
+  background-color: #d1dded;
+}
+
+main {
+  display: flex;
+  height: 90vh;
+  width: 90vw;
+  background-color: white;
+  border-radius: 1rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  box-shadow: 1px 1px 19px -2px rgba(0, 0, 0, 0.2);
+}/*# sourceMappingURL=style.css.map */
