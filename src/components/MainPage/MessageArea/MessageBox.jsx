@@ -15,6 +15,11 @@ export const MessageBox = ({
   currentUserEmail
 }) => {
 
+  function formatMessageTime(timestamp) {
+    const formattedTime = new Date(timestamp).toLocaleTimeString();
+    return formattedTime;
+  }
+
   return (
     <div className="boxContainer">
       <div className="boxUsernameUp">
@@ -45,23 +50,25 @@ export const MessageBox = ({
           />
         ) : (
           messages.map((message, index) => (
-            <div className="boxMessageContainers">
+            <div className="boxMessageContainers" key={index}>
               <div className="circle">
                 <img src={message.sender.email === currentUserEmail ? melody : penguin} />
               </div>
-              <div
-                className={`boxMessages ${message.isSender ? 'senderMessage' : ''}`}
-                key={index}
-              >
-                <div
-                  className="boxMessageContent"
-                  style={{ display: "flex", flexDirection: "flex-col" }}
-                >
-                  <span style={{ fontWeight: "800", fontSize: "0.7rem" }}>
-                    {message.sender.email.charAt(0).toUpperCase() +
-                      message.sender.email.slice(1).split("@")[0]}
+              <div className="boxMessages" >
+                <div className="boxMessageContent"
+                  style={{ display: "flex", flexDirection: "flex-col" }}>
+                  <div className="boxNameandTime">
+                    <span style={{ fontWeight: "800", fontSize: "0.7rem" }}>
+                      {message.sender.email.charAt(0).toUpperCase() +
+                        message.sender.email.slice(1).split("@")[0]}
+                    </span>
+                    <span style={{ fontSize: "0.7rem" }}>
+                      {formatMessageTime(message.created_at)}
+                    </span>
+                  </div>
+                  <span className="boxMessage">
+                    {message.body}
                   </span>
-                  <span className="boxMessage">{message.body}</span>
                 </div>
               </div>
             </div>

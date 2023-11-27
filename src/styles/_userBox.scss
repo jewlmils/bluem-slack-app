@@ -57,6 +57,11 @@
       border-radius: 1rem;
     }
 
+    .boxMessageContent {
+      display: flex;
+      flex-direction: column;
+    }
+
     .boxMessages {
       background-color: #f8f9fa;
       border-radius: 0.5rem;
@@ -64,11 +69,6 @@
       display: flex;
       align-items: center;
       width: 90%;
-    }
-
-    .boxMessageContent {
-      display: flex;
-      flex-direction: column;
     }
   }
 
@@ -117,5 +117,12 @@
 
 .boxMessageContainers {
   display: flex;
+}
+
+.boxNameandTime{
+  display: flex;
+  gap: 0.3rem;
+  margin-bottom: 0.5rem;
+  align-items: center;
 }
 

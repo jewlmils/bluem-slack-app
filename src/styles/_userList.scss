@@ -23,7 +23,7 @@
   align-items: center;
   overflow: hidden;
 
-  img{
+  img {
     width: 2.5rem;
   }
 }
@@ -50,6 +50,8 @@
         margin: 2rem 2rem 1rem 2rem;
       }
     }
+
+    
 
     .boxMainButton {
       display: flex;
@@ -136,4 +138,23 @@
   justify-content: center;
   align-items: center;
   background-color: #f8f9fa;
+}
+
+.listofUserChIntro {
+  display: flex;
+  align-items: center;
+  margin: 2rem 2rem 1rem 2rem;
+  justify-content: space-between;
+
+  h1 {
+    text-align: left;
+    font-size: 1.5rem;
+    font-weight: 800;
+    display: flex;
+  }
+
+  button {
+    border: none;
+    background: none;
+  }
 }

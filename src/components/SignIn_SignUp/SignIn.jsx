@@ -11,7 +11,7 @@ export const SignIn = () => {
 
   useEffect(() => {
     if (localStorage.getItem("user-info")) {
-      navigate("/dashboard");
+      navigate("/dashboard/chat");
     }
   }, []);
 

@@ -231,6 +231,23 @@ table {
   background-color: #f8f9fa;
 }
 
+.listofUserChIntro {
+  display: flex;
+  align-items: center;
+  margin: 2rem 2rem 1rem 2rem;
+  justify-content: space-between;
+}
+.listofUserChIntro h1 {
+  text-align: left;
+  font-size: 1.5rem;
+  font-weight: 800;
+  display: flex;
+}
+.listofUserChIntro button {
+  border: none;
+  background: none;
+}
+
 .boxContainer {
   width: 100%;
   height: 100%;
@@ -283,6 +300,10 @@ table {
   background-color: #95b7e6;
   border-radius: 1rem;
 }
+.boxContainer .boxBody .boxMessageContent {
+  display: flex;
+  flex-direction: column;
+}
 .boxContainer .boxBody .boxMessages {
   background-color: #f8f9fa;
   border-radius: 0.5rem;
@@ -290,10 +311,6 @@ table {
   display: flex;
   align-items: center;
   width: 90%;
-}
-.boxContainer .boxBody .boxMessageContent {
-  display: flex;
-  flex-direction: column;
 }
 .boxContainer .boxForm {
   align-items: flex-end;
@@ -333,6 +350,13 @@ table {
 
 .boxMessageContainers {
   display: flex;
+}
+
+.boxNameandTime {
+  display: flex;
+  gap: 0.3rem;
+  margin-bottom: 0.5rem;
+  align-items: center;
 }
 
 .userModal {
