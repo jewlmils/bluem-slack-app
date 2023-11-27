@@ -12,7 +12,7 @@ export function LandingPage() {
                     <button
                         className="lp-button"
                         onClick={() => {
-                            navigate("/signup");
+                            navigate("/signin");
                         }}
                     >
                         Get Started

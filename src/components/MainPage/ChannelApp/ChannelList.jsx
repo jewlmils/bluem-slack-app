@@ -166,7 +166,8 @@ export const ChannelList = () => {
       const createdChannel = await response.json();
       console.log('Channel created successfully!');
 
-      setChannels((prevChannels) => [...prevChannels, createdChannel.data]);
+      setChannels((prevChannels) => [...prevChannels, ...(Array.isArray(createdChannel.data) ? createdChannel.data : [createdChannel.data])]);
+
 
       createChannelModal();
     } catch (error) {
@@ -337,7 +338,7 @@ export const ChannelList = () => {
 
             {usersLoading && <p>Loading users...</p>}
             {usersError && <p>Error loading users: {usersError}</p>}
-            {channels.length > 0 ? (
+            {channels && channels.length > 0 ? (
               <div className="userListList">
                 <ul className="usersList">
                   {channels.map((channel) => (
