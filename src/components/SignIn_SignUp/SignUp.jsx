@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "@assets/bluem-fullname.png";
+import imageppl from '@assets/pplcoms-01.png'
+import PropagateLoader from "react-spinners/PropagateLoader";
 
 export const SignUp = () => {
     const navigate = useNavigate();
@@ -24,7 +26,6 @@ export const SignUp = () => {
                 password_confirmation: confirmPassword,
                 email
             }
-            console.log(item);
 
             const result = await fetch
                 ('http://206.189.91.54/api/v1/auth/',
@@ -81,56 +82,70 @@ export const SignUp = () => {
 
     return (
         <>
-            <div className="register">
-                <div className="registerContent">
-                    <img className="registerImg" src={logo} />
-                    <h1>Join the Bleum workspace </h1>
-                    <p>We suggest using the
-                        <span style={{ fontWeight: 'bold' }}>email address you use at work.</span>
-                    </p>
-                    <form className="registerForm">
-                        <input
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className="registerInput"
-                            type="email"
-                            placeholder="name@work-email.com"
-                            required
-                        />
-                        <input
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="registerInput"
-                            type="password"
-                            placeholder="password"
-                            required
-                        />
-                        <input
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            className="registerInput"
-                            type="password"
-                            placeholder="confirm password"
-                            required
-                        />
-                        {error && <p style={{ color: 'red', fontSize: '0.8rem' }}>{error}</p>}
-                        <button
-                            className="registerButton"
-                            onClick={Register}
-                            type="button"
-                            disabled={isSubmitting}>
-                            Create Account
-                        </button>
-                        {isSubmitting && <p>Loading...</p>}
-                        <span className="registerFooter">Already using Slack?</span>
-                        <span>
-                            <button
-                                className="registerFooterLink"
-                                onClick={() => { navigate('/signin') }}>
-                                Sign in to an existing workspace
-                            </button>
-                        </span>
-                    </form>
+            <div>
+                <img className="registerBackground" src={imageppl} />
+                <div className="registerContainer">
+                    {isSubmitting ?
+                        <PropagateLoader
+                            loading={isSubmitting}
+                            size={15}
+                            aria-label="Loading Spinner"
+                            data-testid="loader"
+                            color="#7ca2d6"
+                        /> : (
+                            <div className="register">
+                                <div className="registerContent">
+                                    <img className="registerImg" src={logo} />
+                                    <h1>Join the Bleum workspace </h1>
+                                    <p>We suggest using the
+                                        <span style={{ fontWeight: 'bold' }}>email address you use at work.</span>
+                                    </p>
+                                    <form className="registerForm">
+                                        <input
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                            className="registerInput"
+                                            type="email"
+                                            placeholder="name@work-email.com"
+                                            required
+                                        />
+                                        <input
+                                            value={password}
+                                            onChange={(e) => setPassword(e.target.value)}
+                                            className="registerInput"
+                                            type="password"
+                                            placeholder="password"
+                                            required
+                                        />
+                                        <input
+                                            value={confirmPassword}
+                                            onChange={(e) => setConfirmPassword(e.target.value)}
+                                            className="registerInput"
+                                            type="password"
+                                            placeholder="confirm password"
+                                            required
+                                        />
+                                        {error && <p style={{ color: 'red', fontSize: '0.8rem' }}>{error}</p>}
+                                        <button
+                                            className="registerButton"
+                                            onClick={Register}
+                                            type="button"
+                                            disabled={isSubmitting}>
+                                            Create Account
+                                        </button>
+
+                                        <span className="registerFooter">Already using Slack?</span>
+                                        <span>
+                                            <button
+                                                className="registerFooterLink"
+                                                onClick={() => { navigate('/signin') }}>
+                                                Sign in to an existing workspace
+                                            </button>
+                                        </span>
+                                    </form>
+                                </div>
+                            </div>
+                        )}
                 </div>
             </div>
         </>

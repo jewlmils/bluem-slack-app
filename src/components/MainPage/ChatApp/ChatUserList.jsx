@@ -4,7 +4,7 @@ import Select from "react-select";
 import { Trash2 } from "lucide-react";
 import melody from '@assets/myMelodyIcon.jpg'
 import penguin from '@assets/penguin.jpg'
-import HashLoader from "react-spinners/HashLoader";
+import PropagateLoader from "react-spinners/PropagateLoader";
 
 export const ChatUserList = ({
   users,
@@ -49,9 +49,9 @@ export const ChatUserList = ({
       {errorMsg && <p style={{ color: "red" }}>{errorMsg}</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}
       {loading ? (
-        <HashLoader
+        <PropagateLoader
           loading={loading}
-          size={70}
+          size={15}
           aria-label="Loading Spinner"
           data-testid="loader"
           color="#7ca2d6"

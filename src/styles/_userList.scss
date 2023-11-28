@@ -31,6 +31,7 @@
 .userList {
   background-color: #f8f9fa;
   border-right: 1px solid #c4c4c4;
+  width: 30rem;
 
   .listofUsers {
     display: flex;
@@ -157,4 +158,11 @@
     border: none;
     background: none;
   }
+}
+
+.boxChannelList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

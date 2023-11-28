@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import logo from "@assets/bluem-fullname.png";
+import people from '@assets/people-01.png'
 import landingpage from "@assets/landingpage.png";
 
 export function LandingPage() {
@@ -20,20 +21,17 @@ export function LandingPage() {
                 </div>
                 <div className="lp-content">
                 <div className="lp-intro">
-                    <h1>Elevate Your Conversation</h1>
-                    <h1>Anytime, Anywhere</h1>
+                    <h1>Connect anytime, anywhere</h1>
                 </div>
                 <div className="lp-subintro">
                     <h3>
-                        At Bluem, we believe in the power of communication. Whether you're
-                        catching up with friends, collaborating with colleagues, or meeting
-                        new people, our chat app is designed to make every conversation
-                        memorable and effortless.
+                    Bluem: Redefining conversations for effortless and memorable communication.
                     </h3>
-                </div>
-                <img className="lp-hero" src={landingpage} alt="" />
+                    </div>
+                    <img className="lp-hero" src={people} alt="" />
                 </div>
             </div>
+           
         </>
     );
 }

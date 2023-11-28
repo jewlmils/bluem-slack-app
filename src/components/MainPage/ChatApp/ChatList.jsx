@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import bluem from '@assets/bluem-fullname.png'
 import debounce from "lodash.debounce";
 import { useFetchUsers } from "@utils/useFetch";
-import { MessageBox } from "../MessageArea/MessageBox";
-
+import { MessageBox } from "./MessageBox";
 import { ChatUserList } from "./ChatUserList";
 
 export function ChatList() {

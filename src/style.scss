@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap");
 @import "styles/reset";
 @import "styles/sidebar";
 @import "styles/userList";
@@ -6,13 +6,11 @@
 @import "styles/modal";
 @import "styles/landingpage";
 @import "styles/signin";
-@import "styles/signout";
 
 body {
-  font-family: "Lato", sans-serif;
+  font-family: "Montserrat", sans-serif;
   height: 100%;
   overflow: hidden;
-  background-color: #d1dded;
 }
 
 main {
@@ -28,4 +26,3 @@ main {
   overflow: hidden;
   box-shadow: 1px 1px 19px -2px rgba(0, 0, 0, 0.2);
 }
-

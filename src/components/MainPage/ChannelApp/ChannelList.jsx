@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { PlusCircle } from 'lucide-react';
+import { PlusCircle, UserRoundPlus, Send } from 'lucide-react';
 import Select from 'react-select';
 import { useFetchUsers } from '@utils/useFetch';
 import melody from '@assets/myMelodyIcon.jpg';
 import totoro from '@assets/totoro.jpg';
-import penguin from '@assets/penguin.jpg'
 import bluem from '@assets/bluem-fullname.png';
+import PropagateLoader from "react-spinners/PropagateLoader";
 
 
 export const ChannelList = () => {
@@ -18,6 +18,7 @@ export const ChannelList = () => {
   const [selectedChannelId, setSelectedChannelId] = useState(null);
   const [messages, setMessages] = useState([]);
   const [loadingMessages, setLoadingMessages] = useState(false);
+  const [loadingChannel, setLoadingChannel] = useState(false);
   const [messageBody, setMessageBody] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [addMemberModal, setAddMemberModal] = useState(false);
@@ -110,6 +111,7 @@ export const ChannelList = () => {
   useEffect(() => {
     async function fetchChannels() {
       try {
+        setLoadingChannel(true)
         const response = await fetch('http://206.189.91.54/api/v1/channels', {
           method: 'GET',
           headers: {
@@ -130,6 +132,8 @@ export const ChannelList = () => {
         setChannels(data.data);
       } catch (error) {
         console.error('Error fetching channels:', error.message);
+      } finally {
+        setLoadingChannel(false)
       }
     }
 
@@ -248,10 +252,9 @@ export const ChannelList = () => {
       // Update the local state with the new message
       setMessages((prevMessages) => [...prevMessages, sentMessage.data]);
 
-      setMessageBody(''); // Clear the input field after sending the message
+      setMessageBody('');
     } catch (error) {
       console.error('Error sending message:', error.message);
-      // Handle error as needed
     }
   };
 
@@ -305,6 +308,9 @@ export const ChannelList = () => {
         <div className="userModal">
           <div className="userModalContent">
             <h2>Add Member to Channel</h2>
+            <h1>
+              {channels.find((channel) => channel.id === selectedChannelId)?.name || 'Unknown Channel'}
+            </h1>
             <Select
               options={users.map((user) => ({
                 value: user.id,
@@ -336,32 +342,44 @@ export const ChannelList = () => {
               </button>
             </div>
 
-            {usersLoading && <p>Loading users...</p>}
-            {usersError && <p>Error loading users: {usersError}</p>}
-            {channels && channels.length > 0 ? (
-              <div className="userListList">
-                <ul className="usersList">
-                  {channels.map((channel) => (
-                    <li
-                      className={`listOfUser ${selectedChannelId === channel.id ? 'selectedChannel' : ''}`}
-                      key={channel.id}
-                      onClick={() => handleChannelClick(channel.id)}
-                    >
-                      <div className="userName">
-                        <div className="circle">
-                          <img src={penguin} alt="User Avatar" />
-                        </div>
-                        {channel.name.charAt(0).toUpperCase() + channel.name.slice(1).split("@")[0]}
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : (
-              <h1 className="convoIntro">
-                Introduce yourself! What's your go-to weekend activity? Share and connect!
-              </h1>
-            )}
+            <div className="boxChannelList">
+              {usersError && <p>Error loading users: {usersError}</p>}
+              {usersLoading && <p>Loading users...</p>}
+              {loadingChannel ? (
+                <PropagateLoader
+                  loading={loadingChannel}
+                  size={15}
+                  aria-label="Loading Spinner"
+                  data-testid="loader"
+                  color="#7ca2d6"
+                />
+              ) : (
+                channels && channels.length > 0 ? (
+                  <div className="userListList">
+                    <ul className="usersList">
+                      {channels.map((channel) => (
+                        <li
+                          className={`listOfUser ${selectedChannelId === channel.id ? 'selectedChannel' : ''}`}
+                          key={channel.id}
+                          onClick={() => handleChannelClick(channel.id)}
+                        >
+                          <div className="userName">
+                            <div className="circle">
+                              <img src={totoro} alt="User Avatar" />
+                            </div>
+                            {channel.name.charAt(0).toUpperCase() + channel.name.slice(1).split("@")[0]}
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : (
+                  <h1 className="convoIntro">
+                    Introduce yourself! What's your go-to weekend activity? Share and connect!
+                  </h1>
+                )
+              )}
+            </div>
           </div>
         </div>
 
@@ -370,45 +388,63 @@ export const ChannelList = () => {
             <div className="boxUsernameUp">
               <div className="boxUsername">
                 <div className="circle">
-                  <img src={penguin} alt="User Avatar" />
+                  <img src={totoro} alt="User Avatar" />
                 </div>
                 <h1>
                   {channels.find((channel) => channel.id === selectedChannelId)?.name || 'Unknown Channel'}
                 </h1>
               </div>
-              <button onClick={toggleAddMemberModal}>
-                Add Member
+              <button className="addUser" onClick={toggleAddMemberModal}>
+                < UserRoundPlus />
               </button>
             </div>
 
             <div className="boxBody">
               {errorMsg && <p style={{ color: "red" }}>{errorMsg}</p>}
+
               {loadingMessages ? (
-                <p>Loading messages...</p>
+                <PropagateLoader
+                  className="loaderMsg"
+                  loading={loadingMessages}
+                  size={15}
+                  aria-label="Loading Spinner"
+                  data-testid="loader"
+                  color="#7ca2d6"
+                />
               ) : messages.length > 0 ? (
-                <ul className='boxBody'>
-                  {messages.map((message) => (
-                    <div className="boxMessageContainers" key={message.id}>
-                      <div className="circle">
-                        <img src={message.sender && message.sender.email === currentUserEmail ? melody : totoro} />
-                      </div>
-                      <div className="boxMessages">
-                        <div className="boxMessageContent"
-                          style={{ display: "flex", flexDirection: "flex-col" }}>
-                          <div className="boxNameandTime">
-                            <span>{message.sender && message.sender.email
-                              ? message.sender.email.charAt(0).toUpperCase() + message.sender.email.slice(1).split("@")[0]
-                              : 'Sender'}</span>
-                            <span style={{ fontSize: "0.7rem" }}>
-                              {formatMessageTime(message.created_at)}
-                            </span>
-                          </div>
-                          <li className="boxMessage">{message.body}</li>
+                messages.map((message) => (
+                  <div className="boxMessageContainers" key={message.id}
+                    style={{ justifyContent: message.sender && message.sender.email === currentUserEmail ? 'flex-end' : 'flex-start' }}>
+                    <div className="circle">
+                      <img src={message.sender && message.sender.email === currentUserEmail ? melody : totoro} />
+                    </div>
+
+                    <div className="boxMessages" style={{
+                      backgroundColor: message.sender && message.sender.email === currentUserEmail ? 'white' : '#95b7e6',
+                      color: message.sender && message.sender.email === currentUserEmail ? 'black' : 'white'
+                    }}>
+
+                      <div className="boxMessageContent"
+                        style={{ display: "flex", flexDirection: "flex-col" }}>
+                        <div className="boxNameandTime">
+                          <span style={{ fontWeight: "800", fontSize: "0.7rem" }}>
+                            {message.sender && message.sender.email
+                              ? message.sender.email.charAt(0).toUpperCase() +
+                              message.sender.email.slice(1).split("@")[0]
+                              : 'Sender'}
+                          </span>
+                          <span style={{ fontSize: "0.7rem" }}>
+                            {formatMessageTime(message.created_at)}
+                          </span>
+                          <span style={{ fontSize: "0.7rem" }}>
+                            {new Date(message.created_at).toLocaleDateString()}
+                          </span>
                         </div>
+                        <span className="boxMessage">{message.body}</span>
                       </div>
                     </div>
-                  ))}
-                </ul>
+                  </div>
+                ))
               ) : (
                 <p>No messages available for this channel.</p>
               )}
@@ -426,7 +462,7 @@ export const ChannelList = () => {
                 />
 
                 <button type="submit" className="boxSubmit">
-                  Send
+                  < Send />
                 </button>
               </div>
             </form>

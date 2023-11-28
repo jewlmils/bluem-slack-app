@@ -1,8 +1,8 @@
 import React from "react";
-import { User2, Send } from "lucide-react";
+import { Send } from "lucide-react";
 import melody from '@assets/myMelodyIcon.jpg'
 import penguin from '@assets/penguin.jpg'
-import HashLoader from "react-spinners/HashLoader";
+import PropagateLoader from "react-spinners/PropagateLoader";
 
 export const MessageBox = ({
   selectedChat,
@@ -41,20 +41,26 @@ export const MessageBox = ({
         {errorMsg && <p style={{ color: "red" }}>{errorMsg}</p>}
 
         {loadingMessages ? (
-          <HashLoader
+          <PropagateLoader
+            className="loaderMsg"
             loading={loadingMessages}
-            size={70}
+            size={15}
             aria-label="Loading Spinner"
             data-testid="loader"
             color="#7ca2d6"
           />
         ) : (
           messages.map((message, index) => (
-            <div className="boxMessageContainers" key={index}>
+            <div className="boxMessageContainers" key={index}
+              style={{ justifyContent: message.sender.email === currentUserEmail ? 'flex-end' : 'flex-start' }}>
               <div className="circle">
                 <img src={message.sender.email === currentUserEmail ? melody : penguin} />
               </div>
-              <div className="boxMessages" >
+              <div className="boxMessages" style={{
+                backgroundColor: message.sender.email === currentUserEmail ? 'white' : '#95b7e6',
+                color: message.sender.email === currentUserEmail ? 'black' : 'white'
+              }}>
+
                 <div className="boxMessageContent"
                   style={{ display: "flex", flexDirection: "flex-col" }}>
                   <div className="boxNameandTime">
@@ -64,6 +70,9 @@ export const MessageBox = ({
                     </span>
                     <span style={{ fontSize: "0.7rem" }}>
                       {formatMessageTime(message.created_at)}
+                    </span>
+                    <span style={{ fontSize: "0.7rem" }}>
+                      {new Date(message.created_at).toLocaleDateString()}
                     </span>
                   </div>
                   <span className="boxMessage">

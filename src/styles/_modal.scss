@@ -51,30 +51,30 @@
           width: 18rem;
           border: 1px solid #c4c4c4;
         }
-  
-        .userModalButtons {
-          display: flex;
-          gap: 2rem;
-  
-          .userModalButton {
-            background-color: #95b7e6;
-            color: white;
-            font-weight: bold;
-            font-size: 1rem;
-            margin-top: 1rem;
-            padding: 0.8rem;
-            width: 9rem;
-            cursor: pointer;
-            border: none;
-            transition: background-color 0.3s ease;
-            outline: none;
-            border-radius: 0.5rem;
-  
-            &:hover {
-              background-color: #a9cbfb;
-            }
-          }
-        }
+      }
+    }
+  }
+
+  .userModalButtons {
+    display: flex;
+    gap: 2rem;
+
+    .userModalButton {
+      background-color: #95b7e6;
+      color: white;
+      font-weight: bold;
+      font-size: 1rem;
+      margin-top: 1rem;
+      padding: 0.8rem;
+      width: 9rem;
+      cursor: pointer;
+      border: none;
+      transition: background-color 0.3s ease;
+      outline: none;
+      border-radius: 0.5rem;
+
+      &:hover {
+        background-color: #a9cbfb;
       }
     }
   }

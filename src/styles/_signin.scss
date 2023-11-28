@@ -1,5 +1,22 @@
+.registerBackground {
+  width: 90%;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.registerContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .register {
-  font-family: "Lato", sans-serif;
   background-color: white;
   width: 35rem;
   height: auto;
@@ -44,7 +61,7 @@
       }
 
       .registerButton {
-        background-color: #95b7e6;
+        background-color: #107ec1;
         color: white;
         font-weight: bold;
         font-size: 1rem;

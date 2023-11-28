@@ -68,7 +68,7 @@
       padding: 0.5rem;
       display: flex;
       align-items: center;
-      width: 90%;
+      width: 38%;
     }
   }
 
@@ -111,18 +111,32 @@
   }
 }
 
-// .senderMessage {
-//   background-color: lightcoral;
-// }
-
 .boxMessageContainers {
   display: flex;
 }
 
-.boxNameandTime{
+.boxNameandTime {
   display: flex;
   gap: 0.3rem;
   margin-bottom: 0.5rem;
   align-items: center;
 }
 
+.loaderMsg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15rem;
+}
+
+.addUser {
+  border: none;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: #95b7e6;
+  color: white;
+
+  &:hover {
+    background-color: #a9cbfb;
+  }
+}
