@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { PlusCircle, UserRoundPlus, Send } from 'lucide-react';
+import { PlusCircle, UserRoundPlus, Send, User2 } from 'lucide-react';
 import Select from 'react-select';
 import { useFetchUsers } from '@utils/useFetch';
 import melody from '@assets/myMelodyIcon.jpg';
@@ -24,8 +24,8 @@ export const ChannelList = () => {
   const [addMemberModal, setAddMemberModal] = useState(false);
   const [selectedAddMemberUser, setSelectedAddMemberUser] = useState(null);
 
-  const userInfo = JSON.parse(localStorage.getItem('user-info'));
-  const currentUserEmail = userInfo.data.email || '';
+  // const userInfo = JSON.parse(localStorage.getItem('user-info'));
+  // const currentUserEmail = userInfo.data.email || '';
 
   const toggleAddMemberModal = () => {
     setAddMemberModal(!addMemberModal);
@@ -414,31 +414,40 @@ export const ChannelList = () => {
               ) : messages.length > 0 ? (
                 messages.map((message) => (
                   <div className="boxMessageContainers" key={message.id}
-                    style={{ justifyContent: message.sender && message.sender.email === currentUserEmail ? 'flex-end' : 'flex-start' }}>
+                    // style={{ justifyContent: message.sender && message.sender.email === currentUserEmail ? 'flex-end' : 'flex-start' }}
+                  >
                     <div className="circle">
-                      <img src={message.sender && message.sender.email === currentUserEmail ? melody : totoro} />
+                      {/* <img src={message.sender && message.sender.email === currentUserEmail ? melody : totoro} /> */}
+                      <User2/>
                     </div>
 
-                    <div className="boxMessages" style={{
-                      backgroundColor: message.sender && message.sender.email === currentUserEmail ? 'white' : '#95b7e6',
-                      color: message.sender && message.sender.email === currentUserEmail ? 'black' : 'white'
-                    }}>
+                    <div className="boxMessages"
+                      style={{width: '100%'}}
+                      // style={{
+                      //   backgroundColor: message.sender && message.sender.email === currentUserEmail ? 'white' : '#95b7e6',
+                      //   color: message.sender && message.sender.email === currentUserEmail ? 'black' : 'white'
+                      // }}
+                    >
 
                       <div className="boxMessageContent"
                         style={{ display: "flex", flexDirection: "flex-col" }}>
+                        
                         <div className="boxNameandTime">
                           <span style={{ fontWeight: "800", fontSize: "0.7rem" }}>
                             {message.sender && message.sender.email
                               ? message.sender.email.charAt(0).toUpperCase() +
                               message.sender.email.slice(1).split("@")[0]
-                              : 'Sender'}
+                              : 'You'}
                           </span>
+
                           <span style={{ fontSize: "0.7rem" }}>
                             {formatMessageTime(message.created_at)}
                           </span>
+
                           <span style={{ fontSize: "0.7rem" }}>
                             {new Date(message.created_at).toLocaleDateString()}
                           </span>
+                          
                         </div>
                         <span className="boxMessage">{message.body}</span>
                       </div>
