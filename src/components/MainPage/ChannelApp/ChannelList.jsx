@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { PlusCircle, UserRoundPlus, Send, User2 } from 'lucide-react';
 import Select from 'react-select';
 import { useFetchUsers } from '@utils/useFetch';
-import melody from '@assets/myMelodyIcon.jpg';
 import totoro from '@assets/totoro.jpg';
 import bluem from '@assets/bluem-fullname.png';
 import PropagateLoader from "react-spinners/PropagateLoader";
