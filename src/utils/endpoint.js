@@ -10,3 +10,4 @@ export const SIGNIN_URL = `${BASE_URL}auth/sign_in`;
 // retrieve message
 
 // create channel
+export const CREATECHANNEL_URL = `${BASE_URL}add_member`;

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { PlusCircle, UserRoundPlus, Send, User2 } from "lucide-react";
 import PropagateLoader from "react-spinners/PropagateLoader";
 import Select from "react-select";
-import { useFetch } from "@utils";
+import { useFetch, CREATECHANNEL_URL } from "@utils";
 import { logo, totoro } from "@assets";
 
 function ChannelList() {
@@ -40,20 +40,17 @@ function ChannelList() {
     };
 
     try {
-      const response = await fetch(
-        "http://206.189.91.54/api/v1/channel/add_member",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "access-token": localStorage.getItem("access-token"),
-            client: localStorage.getItem("client"),
-            expiry: localStorage.getItem("expiry"),
-            uid: localStorage.getItem("uid"),
-          },
-          body: JSON.stringify(requestBody),
-        }
-      );
+      const response = await fetch(CREATECHANNEL_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "access-token": localStorage.getItem("access-token"),
+          client: localStorage.getItem("client"),
+          expiry: localStorage.getItem("expiry"),
+          uid: localStorage.getItem("uid"),
+        },
+        body: JSON.stringify(requestBody),
+      });
 
       if (!response.ok) {
         const data = await response.json().catch(() => null);
@@ -181,12 +178,18 @@ function ChannelList() {
       const createdChannel = await response.json();
       console.log("Channel created successfully!");
 
-      setChannels((prevChannels) => [
-        ...prevChannels,
-        ...(Array.isArray(createdChannel.data)
-          ? createdChannel.data
-          : [createdChannel.data]),
-      ]);
+      setChannels((prevChannels) => {
+        if (Array.isArray(prevChannels)) {
+          return [
+            ...prevChannels,
+            ...(Array.isArray(createdChannel.data)
+              ? createdChannel.data
+              : [createdChannel.data]),
+          ];
+        } else {
+          return [createdChannel.data];
+        }
+      });
 
       createChannelModal();
     } catch (error) {
