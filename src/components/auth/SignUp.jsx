@@ -59,7 +59,7 @@ function SignUp() {
 
       const userData = await result.json();
       localStorage.setItem("user-info", JSON.stringify(userData));
-      navigate("/dashboard/chat");
+      navigate("/b/chat");
     } catch (error) {
       console.log("Error during registration:", error.message);
       if (error.message.includes("Email has already been taken")) {

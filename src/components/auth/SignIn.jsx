@@ -13,7 +13,7 @@ function SignIn() {
 
   useEffect(() => {
     if (localStorage.getItem("user-info")) {
-      navigate("/dashboard/chat");
+      navigate("/b/chat");
     }
   }, []);
 
@@ -65,7 +65,7 @@ function SignIn() {
 
       const userDataSignIn = await resultSignIn.json();
       localStorage.setItem("user-info", JSON.stringify(userDataSignIn));
-      navigate("/dashboard/chat");
+      navigate("/b/chat");
     } catch (error) {
       console.log("Error during login", error.message);
       setError("An error occurred during login. Please try again later.");
