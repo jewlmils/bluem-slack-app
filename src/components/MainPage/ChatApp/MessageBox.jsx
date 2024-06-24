@@ -1,8 +1,7 @@
 import React from "react";
 import { Send } from "lucide-react";
-import melody from '@assets/myMelodyIcon.jpg'
-import penguin from '@assets/penguin.jpg'
 import PropagateLoader from "react-spinners/PropagateLoader";
+import { penguin, melody } from "@assets";
 
 export const MessageBox = ({
   selectedChat,
@@ -12,9 +11,8 @@ export const MessageBox = ({
   handleSubmit,
   handleChange,
   messageBody,
-  currentUserEmail
+  currentUserEmail,
 }) => {
-
   function formatMessageTime(timestamp) {
     const formattedTime = new Date(timestamp).toLocaleTimeString();
     return formattedTime;
@@ -28,7 +26,7 @@ export const MessageBox = ({
             {" "}
             <div className="circle">
               <img src={penguin} />
-            </div> {" "}
+            </div>{" "}
           </span>
           <h1>
             {selectedChat.label.charAt(0).toUpperCase() +
@@ -51,18 +49,40 @@ export const MessageBox = ({
           />
         ) : (
           messages.map((message, index) => (
-            <div className="boxMessageContainers" key={index}
-              style={{ justifyContent: message.sender.email === currentUserEmail ? 'flex-end' : 'flex-start' }}>
+            <div
+              className="boxMessageContainers"
+              key={index}
+              style={{
+                justifyContent:
+                  message.sender.email === currentUserEmail
+                    ? "flex-end"
+                    : "flex-start",
+              }}
+            >
               <div className="circle">
-                <img src={message.sender.email === currentUserEmail ? melody : penguin} />
+                <img
+                  src={
+                    message.sender.email === currentUserEmail ? melody : penguin
+                  }
+                />
               </div>
-              <div className="boxMessages" style={{
-                backgroundColor: message.sender.email === currentUserEmail ? 'white' : '#95b7e6',
-                color: message.sender.email === currentUserEmail ? 'black' : 'white'
-              }}>
-
-                <div className="boxMessageContent"
-                  style={{ display: "flex", flexDirection: "flex-col" }}>
+              <div
+                className="boxMessages"
+                style={{
+                  backgroundColor:
+                    message.sender.email === currentUserEmail
+                      ? "white"
+                      : "#95b7e6",
+                  color:
+                    message.sender.email === currentUserEmail
+                      ? "black"
+                      : "white",
+                }}
+              >
+                <div
+                  className="boxMessageContent"
+                  style={{ display: "flex", flexDirection: "flex-col" }}
+                >
                   <div className="boxNameandTime">
                     <span style={{ fontWeight: "800", fontSize: "0.7rem" }}>
                       {message.sender.email.charAt(0).toUpperCase() +
@@ -75,9 +95,7 @@ export const MessageBox = ({
                       {new Date(message.created_at).toLocaleDateString()}
                     </span>
                   </div>
-                  <span className="boxMessage">
-                    {message.body}
-                  </span>
+                  <span className="boxMessage">{message.body}</span>
                 </div>
               </div>
             </div>
@@ -96,11 +114,10 @@ export const MessageBox = ({
             className="boxInput"
           />
           <button type="submit" className="boxSubmit">
-            < Send />
+            <Send />
           </button>
         </div>
       </form>
     </div>
   );
 };
-

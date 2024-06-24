@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import bluem from '@assets/bluem-fullname.png'
 import debounce from "lodash.debounce";
-import { useFetchUsers } from "@utils/useFetch";
+import { useFetch } from "@utils";
 import { MessageBox } from "./MessageBox";
 import { ChatUserList } from "./ChatUserList";
+import { logo } from "@assets";
 
-export function ChatList() {
+function ChatList() {
   const apiHeaders = {
     "access-token": localStorage.getItem("access-token"),
     client: localStorage.getItem("client"),
@@ -13,19 +13,19 @@ export function ChatList() {
     uid: localStorage.getItem("uid"),
   };
 
-  const { users, loading, error } = useFetchUsers(apiHeaders);
+  const { users, loading, error } = useFetch(apiHeaders);
   const [loadingMessages, setLoadingMessages] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [selectedChat, setSelectedChat] = useState(null);
   const [messages, setMessages] = useState([]);
-  const [messageBody, setMessageBody] = useState('');
-  const [errorMsg, setErrorMsg] = useState('');
+  const [messageBody, setMessageBody] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
   const [selectedUsers, setSelectedUsers] = useState(
     JSON.parse(localStorage.getItem("userList") || "[]")
   );
 
-  const userInfo = JSON.parse(localStorage.getItem('user-info'));
-  const currentUserEmail = userInfo?.data?.email || '';
+  const userInfo = JSON.parse(localStorage.getItem("user-info"));
+  const currentUserEmail = userInfo?.data?.email || "";
 
   useEffect(() => {
     localStorage.setItem("userList", JSON.stringify(selectedUsers));
@@ -38,10 +38,10 @@ export function ChatList() {
   }, [selectedChat]);
 
   const getAuthHeaders = () => {
-    const accessToken = localStorage.getItem('access-token');
-    const client = localStorage.getItem('client');
-    const expiry = localStorage.getItem('expiry');
-    const uid = localStorage.getItem('uid');
+    const accessToken = localStorage.getItem("access-token");
+    const client = localStorage.getItem("client");
+    const expiry = localStorage.getItem("expiry");
+    const uid = localStorage.getItem("uid");
     return { accessToken, client, expiry, uid };
   };
 
@@ -49,18 +49,31 @@ export function ChatList() {
     try {
       setLoadingMessages(true);
       const { accessToken, client, expiry, uid } = getAuthHeaders();
-      const userInfo = JSON.parse(localStorage.getItem('user-info'));
+      const userInfo = JSON.parse(localStorage.getItem("user-info"));
 
-      if (!accessToken || !client || !expiry || !uid || !userInfo?.data?.email) {
-        setErrorMsg('Authentication headers or user info missing. Please log in.');
+      if (
+        !accessToken ||
+        !client ||
+        !expiry ||
+        !uid ||
+        !userInfo?.data?.email
+      ) {
+        setErrorMsg(
+          "Authentication headers or user info missing. Please log in."
+        );
         return;
       }
 
       const url = `http://206.189.91.54/api/v1/messages?receiver_id=${selectedChat.value}&receiver_class=User`;
 
       const response = await fetch(url, {
-        method: 'GET',
-        headers: { 'access-token': accessToken, 'client': client, 'expiry': expiry, 'uid': uid },
+        method: "GET",
+        headers: {
+          "access-token": accessToken,
+          client: client,
+          expiry: expiry,
+          uid: uid,
+        },
       });
 
       if (!response.ok) {
@@ -69,7 +82,7 @@ export function ChatList() {
 
       const result = await response.json();
       setMessages(result.data || []);
-      setErrorMsg('');
+      setErrorMsg("");
     } catch (err) {
       handleError(err);
     } finally {
@@ -83,10 +96,10 @@ export function ChatList() {
     try {
       setLoadingMessages(true);
       const { accessToken, client, expiry, uid } = getAuthHeaders();
-      const userInfo = JSON.parse(localStorage.getItem('user-info'));
+      const userInfo = JSON.parse(localStorage.getItem("user-info"));
 
       if (!userInfo?.data?.email) {
-        setErrorMsg('Sender info not available. Please log in.');
+        setErrorMsg("Sender info not available. Please log in.");
         return;
       }
 
@@ -98,21 +111,21 @@ export function ChatList() {
 
       setTimeout(async () => {
         try {
-          const response = await fetch('http://206.189.91.54/api/v1/messages', {
-            method: 'POST',
+          const response = await fetch("http://206.189.91.54/api/v1/messages", {
+            method: "POST",
             headers: {
-              'Content-Type': 'application/json',
-              'access-token': accessToken,
-              'client': client,
-              'expiry': expiry,
-              'uid': uid,
+              "Content-Type": "application/json",
+              "access-token": accessToken,
+              client: client,
+              expiry: expiry,
+              uid: uid,
             },
             body: JSON.stringify(newMessage),
           });
 
           const result = await response.json();
           fetchMessages();
-          setMessageBody('');
+          setMessageBody("");
           console.log(result.data);
         } catch (err) {
           handleError(err);
@@ -125,7 +138,6 @@ export function ChatList() {
     }
   };
 
-
   const handleSelectChange = (selectedOption) => {
     const isAlreadySelected = selectedUsers.some(
       (arrayOfUsers) => arrayOfUsers.value === selectedOption.value
@@ -133,11 +145,11 @@ export function ChatList() {
 
     const updatedSelectedUsers = isAlreadySelected
       ? [
-        selectedOption,
-        ...selectedUsers.filter(
-          (arrayOfUsers) => arrayOfUsers.value !== selectedOption.value
-        ),
-      ]
+          selectedOption,
+          ...selectedUsers.filter(
+            (arrayOfUsers) => arrayOfUsers.value !== selectedOption.value
+          ),
+        ]
       : [selectedOption, ...selectedUsers];
 
     setSelectedUsers(updatedSelectedUsers);
@@ -194,26 +206,24 @@ export function ChatList() {
         handleChatDelete={handleChatDelete}
       />
 
-      {selectedChat ?
-        (
-          <MessageBox
-            selectedChat={selectedChat}
-            errorMsg={errorMsg}
-            loadingMessages={loadingMessages}
-            messages={messages}
-            handleSubmit={handleSubmit}
-            handleChange={handleChange}
-            messageBody={messageBody}
-            currentUserEmail={currentUserEmail}
-          />
-        )
-        :
-        (
-          <div className="userWelcome">
-            <img src={bluem} alt="Welcome Image" />
-          </div>
-        )
-      }
+      {selectedChat ? (
+        <MessageBox
+          selectedChat={selectedChat}
+          errorMsg={errorMsg}
+          loadingMessages={loadingMessages}
+          messages={messages}
+          handleSubmit={handleSubmit}
+          handleChange={handleChange}
+          messageBody={messageBody}
+          currentUserEmail={currentUserEmail}
+        />
+      ) : (
+        <div className="userWelcome">
+          <img src={logo} alt="Welcome Image" />
+        </div>
+      )}
     </div>
   );
 }
+
+export default ChatList;
