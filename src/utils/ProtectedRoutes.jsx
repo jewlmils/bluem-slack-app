@@ -1,30 +1,23 @@
-// protectedroutes.jsx
 import React, { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 
 const useAuth = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("user-info"));
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    !!localStorage.getItem("user-info")
+  );
 
-    useEffect(() => {
-        const checkAuthentication = async () => {
-            setIsLoggedIn(!!localStorage.getItem("user-info"));
-        };
-        checkAuthentication();
-    }, []);
+  useEffect(() => {
+    const checkAuthentication = async () => {
+      setIsLoggedIn(!!localStorage.getItem("user-info"));
+    };
+    checkAuthentication();
+  }, []);
 
-    return isLoggedIn;
+  return isLoggedIn;
 };
 
-export const ProtectedRoutes = () => {
-    const isAuth = useAuth();
+export default function ProtectedRoute() {
+  const isAuth = useAuth();
 
-    return (
-        <>
-            {isAuth ? (
-                <Outlet />
-            ) : (
-                <Navigate to="/signin" />
-            )}
-        </>
-    );
-};
+  return <>{isAuth ? <Outlet /> : <Navigate to="/signin" />}</>;
+}

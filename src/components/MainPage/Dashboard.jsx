@@ -1,21 +1,19 @@
-import React from 'react'
+import React from "react";
 import { Routes, Route } from "react-router-dom";
-import { Sidebar } from './Sidebar';
-import { ChatList } from './ChatApp/ChatList';
-import { ChannelList } from './ChannelApp/ChannelList';
-import { ErrorPage } from "@/ErrorPage";
+import { ChatList, ChannelList, Sidebar } from "@";
+import { ErrorPage } from "@pages";
 
-
-export const Dashboard = () => {
-    return (
-        <main>
-            <Sidebar />
-            <Routes>
-                <Route path="chat/*" element={<ChatList />} />
-                <Route path="channel/*" element={<ChannelList />} />
-                <Route path="*" element={<ErrorPage />} />
-            </Routes>
-        </main>
-    )
+function Dashboard() {
+  return (
+    <main>
+      <Sidebar />
+      <Routes>
+        <Route path="chat/*" element={<ChatList />} />
+        <Route path="channel/*" element={<ChannelList />} />
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
+    </main>
+  );
 }
 
+export default Dashboard;

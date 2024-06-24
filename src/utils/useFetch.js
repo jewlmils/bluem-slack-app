@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
+import { BASE_URL } from "./endpoint";
 
-const apiEndPoint = "http://206.189.91.54/api/v1/";
-
-export const useFetchUsers = () => {
+function useFetch() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -10,20 +9,31 @@ export const useFetchUsers = () => {
   useEffect(() => {
     async function fetchUsers() {
       try {
-        const response = await fetch(apiEndPoint + 'users', {
+        const accessToken = localStorage.getItem("access-token");
+        const client = localStorage.getItem("client");
+        const expiry = localStorage.getItem("expiry");
+        const uid = localStorage.getItem("uid");
+
+        if (!accessToken || !client || !expiry || !uid) {
+          throw new Error("Authentication tokens are missing.");
+        }
+
+        const response = await fetch(BASE_URL + "users", {
           method: "GET",
           headers: {
-            "access-token": localStorage.getItem("access-token"),
-            client: localStorage.getItem("client"),
-            expiry: localStorage.getItem("expiry"),
-            uid: localStorage.getItem("uid"),
+            "access-token": accessToken,
+            client: client,
+            expiry: expiry,
+            uid: uid,
           },
         });
 
         if (!response.ok) {
           const data = await response.json().catch(() => null);
           const errorMessage = data ? data.message : "Unknown error";
-          throw new Error(`Failed to fetch users. Status: ${response.status}. ${errorMessage}`);
+          throw new Error(
+            `Failed to fetch users. Status: ${response.status}. ${errorMessage}`
+          );
         }
 
         const data = await response.json();
@@ -40,6 +50,6 @@ export const useFetchUsers = () => {
   }, []);
 
   return { users, loading, error };
-};
+}
 
-
+export default useFetch;

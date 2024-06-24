@@ -1,27 +1,38 @@
 import React from "react";
-import './style.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { LandingPage } from '@/LandingPage';
-import { SignUp } from "@/SignIn_SignUp/SignUp";
-import { SignIn } from "@/SignIn_SignUp/SignIn";
-import { Dashboard } from "@/MainPage/Dashboard";
-import { ErrorPage } from "./components/ErrorPage";
-import { ProtectedRoutes } from "@utils/ProtectedRoutes";
+import "./style.css";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { LandingPage, SignIn, SignUp, Dashboard } from "@";
+import { ErrorPage } from "@pages";
+import { ProtectedRoutes } from "@utils";
 
 function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="signup" element={<SignUp />} />
-        <Route path="signin" element={<SignIn />} />
-        <Route element={<ProtectedRoutes />}>
-          <Route path="dashboard/*" element={<Dashboard />} />
-        </Route>
-        <Route path="*" element={<ErrorPage />} />
-      </Routes>
-    </Router>
-  )
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <LandingPage />,
+      errorElement: <ErrorPage />,
+    },
+    {
+      path: "/signup",
+      element: <SignUp />,
+    },
+    {
+      path: "/signin",
+      element: <SignIn />,
+    },
+    {
+      path: "/b",
+      element: <ProtectedRoutes />,
+      children: [
+        {
+          path: "*",
+          element: <Dashboard />,
+        },
+      ],
+    },
+  ]);
+
+  return <RouterProvider router={router} />;
 }
 
-export default App
+export default App;

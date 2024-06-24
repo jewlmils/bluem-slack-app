@@ -1,10 +1,8 @@
-// UserList.js
 import React from "react";
 import Select from "react-select";
 import { Trash2 } from "lucide-react";
-import melody from '@assets/myMelodyIcon.jpg'
-import penguin from '@assets/penguin.jpg'
 import PropagateLoader from "react-spinners/PropagateLoader";
+import { penguin } from "@assets";
 
 export const ChatUserList = ({
   users,
