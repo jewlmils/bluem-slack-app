@@ -3,22 +3,24 @@ import Select from "react-select";
 import { useFetch } from "@utils";
 import { Minus } from "lucide-react";
 
-function Chats() {
+function Chats({ setSelectedEmail, setPreviewEmail }) {
   const { users, loading, error } = useFetch();
   const [selectedEmails, setSelectedEmails] = useState([]);
   const [selectedOption, setSelectedOption] = useState(null);
 
-  // Load selected emails from local storage on component mount
   useEffect(() => {
     const storedEmails =
       JSON.parse(localStorage.getItem("selectedEmails")) || [];
     setSelectedEmails(storedEmails);
-  }, []);
+    if (storedEmails.length > 0) {
+      setSelectedEmail(storedEmails[0]);
+    }
+  }, [setSelectedEmail]);
 
-  // Update local storage whenever selectedEmails change
   useEffect(() => {
     localStorage.setItem("selectedEmails", JSON.stringify(selectedEmails));
-  }, [selectedEmails]);
+    setSelectedEmail(selectedEmails.length > 0 ? selectedEmails[0] : "");
+  }, [selectedEmails, setSelectedEmail]);
 
   const handleEmailChange = (selectedOption) => {
     const selectedEmail = selectedOption.value;
@@ -48,6 +50,10 @@ function Chats() {
     return email;
   };
 
+  const showEmailPreview = (email) => {
+    setPreviewEmail(email); // Set previewEmail state in Dashboard.jsx
+  };
+
   return (
     <div>
       <div className="pb-2">
@@ -67,15 +73,19 @@ function Chats() {
       />
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
-      <div>
+      <div className="pt-4">
         <ul style={{ maxHeight: "30vh", overflowY: "auto" }}>
           {selectedEmails.map((email) => (
-            <li className="flex justify-between" key={email}>
+            <li
+              className="flex justify-between py-1 cursor-pointer"
+              key={email}
+              onClick={() => showEmailPreview(email)} // Call showEmailPreview onClick
+            >
               <span
                 title={email}
                 className="truncate overflow-hidden text-ellipsis"
               >
-                {truncateEmail(email)}
+                🎀 {truncateEmail(email)}
               </span>
               <button onClick={() => removeSelectedEmail(email)}>
                 <Minus className="text-red-500" />
