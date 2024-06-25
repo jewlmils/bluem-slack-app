@@ -360,6 +360,7 @@ function ChannelList() {
                   padding: "0.3rem",
                 }),
               }}
+              menuPortal={true}
             />
             <div className="userModalButtons">
               <button className="userModalButton" onClick={addMemberToChannel}>
@@ -400,25 +401,32 @@ function ChannelList() {
               ) : channels && channels.length > 0 ? (
                 <div className="userListList">
                   <ul className="usersList">
-                    {channels.map((channel) => (
-                      <li
-                        className={`listOfUser ${
-                          selectedChannelId === channel.id
-                            ? "selectedChannel"
-                            : ""
-                        }`}
-                        key={channel.id}
-                        onClick={() => handleChannelClick(channel.id)}
-                      >
-                        <div className="userName">
-                          <div className="circle">
-                            <img src={totoro} alt="User Avatar" />
-                          </div>
-                          {channel.name.charAt(0).toUpperCase() +
-                            channel.name.slice(1).split("@")[0]}
-                        </div>
-                      </li>
-                    ))}
+                    {channels.map((channel) => {
+                      if (channel) {
+                        // Add this check
+                        return (
+                          <li
+                            className={`listOfUser ${
+                              selectedChannelId === channel.id
+                                ? "selectedChannel"
+                                : ""
+                            }`}
+                            key={channel.id}
+                            onClick={() => handleChannelClick(channel.id)}
+                          >
+                            <div className="userName">
+                              <div className="circle">
+                                <img src={totoro} alt="User Avatar" />
+                              </div>
+                              {channel.name.charAt(0).toUpperCase() +
+                                channel.name.slice(1).split("@")[0]}
+                            </div>
+                          </li>
+                        );
+                      } else {
+                        return null; // or some default value
+                      }
+                    })}
                   </ul>
                 </div>
               ) : (
