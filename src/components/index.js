@@ -5,3 +5,5 @@ export { default as Dashboard } from "./MainPage/Dashboard";
 export { default as LandingPage } from "./LandingPage";
 export { default as SignIn } from "./auth/SignIn";
 export { default as SignUp } from "./auth/SignUp";
+export { default as CSidebar } from "./CSidebar";
+export { default as Modal } from "./Modal";

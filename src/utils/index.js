@@ -1,3 +1,4 @@
-export { default as useFetch } from "./useFetch";
+export * from "./hooks";
+export * from "./apiCall";
 export { default as ProtectedRoutes } from "./ProtectedRoutes";
 export * from "./endpoint";
