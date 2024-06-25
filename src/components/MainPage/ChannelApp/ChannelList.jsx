@@ -360,7 +360,6 @@ function ChannelList() {
                   padding: "0.3rem",
                 }),
               }}
-              menuPortal={true}
             />
             <div className="userModalButtons">
               <button className="userModalButton" onClick={addMemberToChannel}>
@@ -380,7 +379,7 @@ function ChannelList() {
       <div className="channel">
         <div className="userList">
           <div className="listOfUsers">
-            <div className="listofUserChIntro">
+            <div className="listofUserChIntro" style={{ marginBottom: "4rem" }}>
               <h1>Channels</h1>
               <button onClick={createChannelModal}>
                 <PlusCircle />
@@ -403,7 +402,6 @@ function ChannelList() {
                   <ul className="usersList">
                     {channels.map((channel) => {
                       if (channel) {
-                        // Add this check
                         return (
                           <li
                             className={`listOfUser ${
@@ -424,7 +422,7 @@ function ChannelList() {
                           </li>
                         );
                       } else {
-                        return null; // or some default value
+                        return null;
                       }
                     })}
                   </ul>
