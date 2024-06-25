@@ -21,10 +21,11 @@ export const ChatUserList = ({
       <div className="listofUserIntro">
         <h1>Chats</h1>
         <Select
-          options={users.map((user) => ({
-            value: user.id,
-            label: user.email,
-          }))}
+          options={
+            users
+              ? users.map((user) => ({ value: user.id, label: user.email }))
+              : []
+          }
           value={selectedUser}
           onChange={debouncedHandleSelectChange}
           onInputChange={handleInputChange}

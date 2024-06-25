@@ -7,3 +7,6 @@ export { default as SignIn } from "./auth/SignIn";
 export { default as SignUp } from "./auth/SignUp";
 export { default as CSidebar } from "./CSidebar";
 export { default as Modal } from "./Modal";
+export { default as Navbar } from "./Navbar";
+export { default as CCSidebar } from "./CCSidebar";
+export { default as Board } from "./Board";

@@ -1,8 +1,8 @@
 import React from "react";
 import "./style.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { LandingPage, SignIn, SignUp, Dashboard } from "@";
-import { ErrorPage } from "@pages";
+import { LandingPage, SignIn, SignUp } from "@";
+import { ErrorPage, Dashboard } from "@pages";
 import { ProtectedRoutes } from "@utils";
 
 function App() {

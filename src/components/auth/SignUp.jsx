@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PropagateLoader from "react-spinners/PropagateLoader";
-import { logo, imageppl } from "@assets";
+import { logo } from "@assets";
+import { Eye, EyeOff } from "lucide-react";
 import { SIGNUP_URL } from "@utils";
 
 function SignUp() {
@@ -11,6 +12,7 @@ function SignUp() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   async function Register() {
     try {
@@ -74,82 +76,114 @@ function SignUp() {
 
   return (
     <>
-      <div>
-        <img className="registerBackground" src={imageppl} />
-        <div className="registerContainer">
-          {isSubmitting ? (
-            <PropagateLoader
-              loading={isSubmitting}
-              size={15}
-              aria-label="Loading Spinner"
-              data-testid="loader"
-              color="#7ca2d6"
-            />
-          ) : (
-            <div className="register">
-              <div className="registerContent">
-                <img className="registerImg" src={logo} />
-                <h1>Join the Bleum workspace </h1>
-                <p>
-                  We suggest using the
-                  <span style={{ fontWeight: "bold" }}>
-                    email address you use at work.
-                  </span>
-                </p>
-                <form className="registerForm">
-                  <input
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="registerInput"
-                    type="email"
-                    placeholder="name@work-email.com"
-                    required
-                  />
-                  <input
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="registerInput"
-                    type="password"
-                    placeholder="password"
-                    required
-                  />
-                  <input
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="registerInput"
-                    type="password"
-                    placeholder="confirm password"
-                    required
-                  />
-                  {error && (
-                    <p style={{ color: "red", fontSize: "0.8rem" }}>{error}</p>
-                  )}
-                  <button
-                    className="registerButton"
-                    onClick={Register}
-                    type="button"
-                    disabled={isSubmitting}
-                  >
-                    Create Account
-                  </button>
+      {isSubmitting ? (
+        <PropagateLoader
+          loading={isSubmitting}
+          size={15}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+          color="#7ca2d6"
+        />
+      ) : (
+        <div className="bg-gray-50 font-[sans-serif]">
+          <div className="min-h-screen flex flex-col items-center justify-center py-6 px-4">
+            <div className="max-w-md w-full">
+              <a href="">
+                <img src={logo} className="w-40 mb-8 mx-auto block" />
+              </a>
 
-                  <span className="registerFooter">Already using Slack?</span>
-                  <span>
+              <div className="p-8 rounded-2xl bg-white shadow">
+                <h2 className="text-gray-800 text-center text-2xl font-bold">
+                  Sign Up
+                </h2>
+                <form
+                  className="mt-8 space-y-4"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    Login;
+                  }}
+                >
+                  <div>
+                    <label className="text-gray-800 text-sm mb-2 block">
+                      Email
+                    </label>
+                    <div className="relative flex items-center">
+                      <input
+                        onChange={(e) => setEmail(e.target.value)}
+                        name="username"
+                        type="text"
+                        required
+                        className="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600"
+                        placeholder="Enter user name"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="text-gray-800 text-sm mb-2 block">
+                      Password
+                    </label>
+                    <div className="relative flex items-center">
+                      <input
+                        onChange={(e) => setPassword(e.target.value)}
+                        name="password"
+                        type={passwordVisible ? "text" : "password"}
+                        required
+                        className="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600"
+                        placeholder="Enter password"
+                      />
+                      <div
+                        className="w-4 h-4 absolute right-4 text-gray-500 cursor-pointer"
+                        onClick={() => setPasswordVisible(!passwordVisible)}
+                      >
+                        {passwordVisible ? <Eye /> : <EyeOff />}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="text-gray-800 text-sm mb-2 block">
+                      Confirm Password
+                    </label>
+                    <div className="relative flex items-center">
+                      <input
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        name="password"
+                        type="text"
+                        required
+                        className="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600"
+                        placeholder="Enter password"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="!mt-8">
                     <button
-                      className="registerFooterLink"
+                      onClick={Register}
+                      disabled={isSubmitting}
+                      type="button"
+                      className="w-full py-3 px-4 text-sm tracking-wide rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none"
+                    >
+                      Sign in
+                    </button>
+                  </div>
+                  <p className="text-gray-800 text-sm !mt-8 text-center">
+                    Already using Bluem?{" "}
+                    <span
                       onClick={() => {
                         navigate("/signin");
                       }}
+                      className="text-blue-600 hover:underline ml-1 whitespace-nowrap font-semibold"
                     >
-                      Sign in to an existing workspace
-                    </button>
-                  </span>
+                      Register here
+                    </span>
+                  </p>
                 </form>
               </div>
             </div>
-          )}
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 }

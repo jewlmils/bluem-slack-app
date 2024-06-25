@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PropagateLoader from "react-spinners/PropagateLoader";
-import { logo, imageppl } from "@assets";
+import { logo } from "@assets";
+import { Eye, EyeOff } from "lucide-react";
 import { SIGNIN_URL } from "@utils";
 
 function SignIn() {
@@ -10,6 +11,7 @@ function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSignInLoading, setIsSignLoading] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   useEffect(() => {
     if (localStorage.getItem("user-info")) {
@@ -73,81 +75,100 @@ function SignIn() {
       setIsSignLoading(false);
     }
   }
-
   return (
     <>
-      <div>
-        <img className="registerBackground" src={imageppl} />
-        <div className="registerContainer">
-          {isSignInLoading ? (
-            <PropagateLoader
-              loading={isSignInLoading}
-              size={15}
-              aria-label="Loading Spinner"
-              data-testid="loader"
-              color="#7ca2d6"
-            />
-          ) : (
-            <div className="register">
-              <div className="registerContent">
-                <img className="registerImg" src={logo} />
-                <h1>Sign in to your workspace</h1>
-                <p>
-                  We suggest using the
-                  <span style={{ fontWeight: "bold", color: "#107ec1" }}>
-                    {" "}
-                    email address you use at work.
-                  </span>
-                </p>
+      {isSignInLoading ? (
+        <PropagateLoader
+          loading={isSignInLoading}
+          size={15}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+          color="#7ca2d6"
+        />
+      ) : (
+        <div className="bg-gray-50 font-[sans-serif]">
+          <div className="min-h-screen flex flex-col items-center justify-center py-6 px-4">
+            <div className="max-w-md w-full">
+              <a href="">
+                <img src={logo} className="w-40 mb-8 mx-auto block" />
+              </a>
+
+              <div className="p-8 rounded-2xl bg-white shadow">
+                <h2 className="text-gray-800 text-center text-2xl font-bold">
+                  Sign in
+                </h2>
                 <form
-                  className="registerForm"
+                  className="mt-8 space-y-4"
                   onSubmit={(e) => {
                     e.preventDefault();
                     Login;
                   }}
                 >
-                  <input
-                    className="registerInput"
-                    onChange={(e) => setEmail(e.target.value)}
-                    type="email"
-                    placeholder="name@work-email.com"
-                    required
-                  />
-                  <input
-                    className="registerInput"
-                    onChange={(e) => setPassword(e.target.value)}
-                    type="password"
-                    placeholder="password"
-                    required
-                  />
-                  {error && (
-                    <p style={{ color: "red", fontSize: "0.8rem" }}>{error}</p>
-                  )}
-                  <button
-                    className="registerButton"
-                    onClick={Login}
-                    type="button"
-                    disabled={isSignInLoading}
-                  >
-                    Sign in With Email
-                  </button>
-                  <span className="registerFooter">New to Slack?</span>
-                  <span>
+                  <div>
+                    <label className="text-gray-800 text-sm mb-2 block">
+                      Email
+                    </label>
+                    <div className="relative flex items-center">
+                      <input
+                        onChange={(e) => setEmail(e.target.value)}
+                        name="username"
+                        type="text"
+                        required
+                        className="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600"
+                        placeholder="Enter user name"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="text-gray-800 text-sm mb-2 block">
+                      Password
+                    </label>
+                    <div className="relative flex items-center">
+                      <input
+                        type={passwordVisible ? "text" : "password"}
+                        onChange={(e) => setPassword(e.target.value)}
+                        name="password"
+                        required
+                        className="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600"
+                        placeholder="Enter password"
+                      />
+                      <div
+                        className="w-4 h-4 absolute right-4 text-gray-500 cursor-pointer"
+                        onClick={() => setPasswordVisible(!passwordVisible)}
+                      >
+                        {passwordVisible ? <Eye /> : <EyeOff />}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="!mt-8">
                     <button
-                      className="registerFooterLink"
+                      onClick={Login}
+                      disabled={isSignInLoading}
+                      type="button"
+                      className="w-full py-3 px-4 text-sm tracking-wide rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none"
+                    >
+                      Sign in
+                    </button>
+                  </div>
+                  <p className="text-gray-800 text-sm !mt-8 text-center">
+                    Don't have an account?{" "}
+                    <span
                       onClick={() => {
                         navigate("/signup");
                       }}
+                      className="text-blue-600 hover:underline ml-1 whitespace-nowrap font-semibold"
                     >
-                      Create an account
-                    </button>
-                  </span>
+                      Register here
+                    </span>
+                  </p>
                 </form>
               </div>
             </div>
-          )}
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 }
